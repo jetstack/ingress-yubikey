@@ -9,12 +9,13 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"crypto/x509/pkix"
-	"github.com/pkg/errors"
 	"io"
 	"math"
 	"math/big"
 	"net"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 // SelfSigned generates a new self signed certificate

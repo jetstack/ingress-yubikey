@@ -1,13 +1,15 @@
 package cmd
 
 import (
-	"github.com/jakexks/ingress-yubikey/pkg/controller/ingress"
+	"os"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+
+	"github.com/jetstack/ingress-yubikey/pkg/controller/ingress"
 )
 
 var (

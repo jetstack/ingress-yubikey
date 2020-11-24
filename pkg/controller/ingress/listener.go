@@ -14,9 +14,9 @@ import (
 	"github.com/go-piv/piv-go/piv"
 	"github.com/spf13/viper"
 
-	"github.com/jakexks/ingress-yubikey/pkg/util/http"
-	utiltls "github.com/jakexks/ingress-yubikey/pkg/util/tls"
-	"github.com/jakexks/ingress-yubikey/pkg/util/yubikey"
+	"github.com/jetstack/ingress-yubikey/pkg/util/http"
+	utiltls "github.com/jetstack/ingress-yubikey/pkg/util/tls"
+	"github.com/jetstack/ingress-yubikey/pkg/util/yubikey"
 )
 
 func (c *Controller) Listen(ctx context.Context) {

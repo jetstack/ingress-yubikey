@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	utiltls "github.com/jakexks/ingress-yubikey/pkg/util/tls"
+	utiltls "github.com/jetstack/ingress-yubikey/pkg/util/tls"
 )
 
 func Redirect() *http.Server {

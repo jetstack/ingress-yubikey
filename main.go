@@ -1,6 +1,6 @@
 package main
 
-import "github.com/jakexks/ingress-yubikey/cmd"
+import "github.com/jetstack/ingress-yubikey/cmd"
 
 func main() {
 	cmd.Execute()

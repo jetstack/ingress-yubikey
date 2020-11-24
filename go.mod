@@ -1,4 +1,4 @@
-module github.com/jakexks/ingress-yubikey
+module github.com/jetstack/ingress-yubikey
 
 go 1.15
 

@@ -7,7 +7,7 @@ import (
 	"github.com/go-piv/piv-go/piv"
 	"github.com/spf13/cobra"
 
-	"github.com/jakexks/ingress-yubikey/pkg/util/yubikey"
+	"github.com/jetstack/ingress-yubikey/pkg/util/yubikey"
 )
 
 var ValidateCommand = &cobra.Command{

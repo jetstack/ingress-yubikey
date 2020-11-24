@@ -1,11 +1,12 @@
 ## ingress-yubikey
 
-This is a proof-of-concept
+This is a proof-of-concept **highly experimental!**
 [Kubernetes Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 that terminates TLS using a certificate and Key from the PIV smartcard applet
 on a Yubikey. This addresses a common complaint that Kubernetes Ingress
 controllers have cluster-wide access to Secrets in order to retrieve 
-TLS private Keys.
+TLS private Keys. With a hardware-backed key, the private key never exists 
+in application memory
 
 ### Usage
 

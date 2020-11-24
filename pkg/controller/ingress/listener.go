@@ -9,6 +9,7 @@ import (
 	"net"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/go-piv/piv-go/piv"
 	"github.com/spf13/viper"
@@ -116,15 +117,16 @@ func (c *Controller) handleConn(conn net.Conn) {
 		c.Log.Error(err, "couldn't validate yubikey")
 		return
 	}
-	defer yk.Close()
 	cert, err := yk.Certificate(piv.SlotSignature)
 	if err != nil {
 		c.Log.Error(err, "couldn't retrieve cert from yubikey")
+		yk.Close()
 		return
 	}
 	key, err := yk.PrivateKey(piv.SlotSignature, cert.PublicKey, piv.KeyAuth{PIN: viper.GetString("smartcard-pin")})
 	if err != nil {
 		c.Log.Error(err, "couldn't retrieve handle to key from yubikey")
+		yk.Close()
 		return
 	}
 	tlsServer := tls.Server(connStream, &tls.Config{
@@ -138,6 +140,7 @@ func (c *Controller) handleConn(conn net.Conn) {
 	remote, err = net.Dial("tcp", fmt.Sprintf("%s.%s.svc:%d", upstream.serviceName, upstream.serviceNamespace, upstream.port))
 	if err != nil {
 		c.Log.Error(err, "couldn't dial upstream")
+		yk.Close()
 		return
 	}
 	defer remote.Close()
@@ -153,6 +156,10 @@ func (c *Controller) handleConn(conn net.Conn) {
 		io.Copy(remote, tlsServer)
 		remote.(*net.TCPConn).CloseWrite()
 		wg.Done()
+	}()
+	go func() {
+		time.Sleep(1*time.Second)
+		yk.Close()
 	}()
 	wg.Wait()
 }

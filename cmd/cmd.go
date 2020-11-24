@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	ctrl "sigs.k8s.io/controller-runtime"
 	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
+	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 var (

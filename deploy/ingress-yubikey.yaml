@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "ingress-yubikey"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ingress-yubikey
+  namespace: ingress-yubikey
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ingress-yubikey
+rules:
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get", "watch", "list"]
+# Look, I don't need access to secrets!
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ingress-yubikey
+subjects:
+- kind: ServiceAccount
+  name: ingress-yubikey
+  namespace: ingress-yubikey
+roleRef:
+  kind: ClusterRole
+  name: ingress-yubikey
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-yubikey
+  namespace: ingress-yubikey
+  labels:
+    app: ingress-yubikey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-yubikey
+  template:
+    metadata:
+      labels:
+        app: ingress-yubikey
+    spec:
+      containers:
+      - name: ingress-yubikey
+        image: jakexks/ingress-yubikey
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+      serviceAccountName: ingress-yubikey
